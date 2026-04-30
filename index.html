@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mara & Julian — Tuscan Wedding Weekend</title>
+  <style>
+    :root {
+      --ivory: #f7f2ea;
+      --sand: #e8dece;
+      --olive: #6d7558;
+      --terracotta: #b77d5a;
+      --espresso: #2f251f;
+      --gold: #b9a173;
+      --line: rgba(47, 37, 31, 0.2);
+      --maxw: 1200px;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: "Georgia", "Times New Roman", serif;
+      background: var(--ivory);
+      color: var(--espresso);
+      line-height: 1.6;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(92%, var(--maxw)); margin: 0 auto; }
+
+    header {
+      position: fixed; inset: 0 0 auto 0; z-index: 99;
+      backdrop-filter: blur(8px);
+      background: rgba(247, 242, 234, 0.9);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-wrap { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; }
+    .brand { letter-spacing: 0.18em; font-size: 0.8rem; text-transform: uppercase; }
+    nav ul { list-style: none; display: flex; gap: 1.2rem; margin: 0; padding: 0; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; }
+    .burger { display: none; border: 1px solid var(--line); background: transparent; padding: .5rem .7rem; }
+
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(rgba(30,24,20,.35), rgba(30,24,20,.35)),
+        url('https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat;
+      color: #fff;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 8rem 1rem 4rem;
+    }
+    .hero h1 { font-size: clamp(2.7rem, 7vw, 6rem); margin: 0; font-weight: 500; letter-spacing: .02em; }
+    .hero p { margin: .5rem 0; font-size: clamp(1rem, 2.2vw, 1.4rem); }
+    .kicker { letter-spacing: .16em; text-transform: uppercase; font-size: .75rem; }
+
+    section { padding: 5.5rem 0; border-top: 1px solid var(--line); }
+    h2 { font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 500; margin: 0 0 1rem; }
+    .intro { max-width: 780px; font-size: 1.1rem; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 2rem; }
+    .card { background: #fff; border: 1px solid var(--line); padding: 2rem; }
+    .card h3 { margin-top: 0; font-size: 1.5rem; font-weight: 500; }
+    .small { text-transform: uppercase; letter-spacing: .12em; font-size: .75rem; color: var(--olive); }
+    .image-panel { border: 1px solid var(--line); overflow: hidden; }
+    .image-panel img { height: 100%; width: 100%; object-fit: cover; }
+
+    .schedule table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid var(--line); }
+    .schedule th, .schedule td { text-align: left; padding: .9rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+    .schedule th { width: 160px; font-weight: 500; color: var(--olive); }
+
+    .faq details { border-bottom: 1px solid var(--line); padding: .9rem 0; }
+    .faq summary { cursor: pointer; font-size: 1.05rem; }
+
+    .rsvp-wrap { background: #fff; border: 1px solid var(--line); padding: 2rem; }
+    .steps { display: flex; gap: .8rem; flex-wrap: wrap; margin-bottom: 1.2rem; }
+    .step { border: 1px solid var(--line); padding: .35rem .7rem; font-size: .8rem; text-transform: uppercase; letter-spacing: .09em; }
+    .step.active { border-color: var(--gold); color: var(--gold); }
+    .form-step { display: none; }
+    .form-step.active { display: block; }
+    label { display: block; margin: .6rem 0 .2rem; font-size: .9rem; letter-spacing: .05em; text-transform: uppercase; }
+    input, select, textarea {
+      width: 100%; padding: .7rem; border: 1px solid var(--line); background: #fefcf8; color: var(--espresso);
+      font: inherit;
+    }
+    .row { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1rem; }
+    .actions { display: flex; gap: .8rem; margin-top: 1rem; }
+    button {
+      border: 1px solid var(--espresso); background: var(--espresso); color: #fff; padding: .7rem 1rem;
+      text-transform: uppercase; letter-spacing: .08em; font-size: .78rem; cursor: pointer;
+    }
+    button.secondary { background: transparent; color: var(--espresso); }
+    .muted { font-size: .9rem; color: #6f6258; }
+    #status { margin-top: .9rem; font-weight: 500; }
+    .visually-hidden { position: absolute !important; left: -9999px !important; }
+
+    footer { padding: 2.5rem 0 4rem; text-align: center; border-top: 1px solid var(--line); }
+
+    @media (max-width: 900px) {
+      nav ul { display: none; position: absolute; right: 4%; top: 68px; background: var(--ivory); border: 1px solid var(--line); padding: .8rem; width: 250px; flex-direction: column; }
+      nav ul.open { display: flex; }
+      .burger { display: inline-block; }
+      .grid-2, .row { grid-template-columns: 1fr; }
+      .schedule th { width: 110px; }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="container nav-wrap">
+    <div class="brand">Mara & Julian</div>
+    <nav>
+      <button class="burger" aria-label="Menü öffnen" id="burger">☰</button>
+      <ul id="menu">
+        <li><a href="#welcome">Welcome</a></li><li><a href="#weekend">Weekend</a></li><li><a href="#venues">Venues</a></li>
+        <li><a href="#travel">Travel</a></li><li><a href="#dresscode">Dresscode</a></li><li><a href="#rsvp">RSVP</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="hero">
+  <div>
+    <p class="kicker">Tuscan Wedding Weekend</p>
+    <h1>Mara & Julian</h1>
+    <p>12 — 14 September 2026</p>
+    <p>Val d’Orcia, Tuscany</p>
+    <p>A three-day celebration beneath the Tuscan sun</p>
+  </div>
+</section>
+
+<section id="welcome" class="container">
+  <h2>Welcome</h2>
+  <p class="intro">Wir freuen uns von Herzen, euch zu einem ganzen Wochenende in der Toskana einzuladen. Zwischen Olivenhainen, Zypressen und langen Tafeln unter freiem Himmel möchten wir gemeinsam mit euch ankommen, feiern und besondere Momente teilen. Diese Tage sind bewusst als kleine Auszeit gestaltet — elegant, entspannt und voller Zeit füreinander.</p>
+</section>
+
+<section id="weekend" class="container">
+  <h2>The Weekend</h2>
+  <div class="grid-2">
+    <article class="card"><p class="small">Friday</p><h3>Arrival & Aperitivo</h3><p>Check-in ab 15:00 Uhr<br>Aperitivo im Olivengarten um 18:30 Uhr<br>Welcome Dinner um 20:00 Uhr</p></article>
+    <article class="image-panel"><img src="https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?auto=format&fit=crop&w=1400&q=80" alt="Tuscan villa"/></article>
+    <article class="image-panel"><img src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=1400&q=80" alt="Long dinner table in Tuscany"/></article>
+    <article class="card"><p class="small">Saturday</p><h3>Ceremony & Celebration</h3><p>Zeremonie um 16:00 Uhr<br>Cocktail Hour um 17:30 Uhr<br>Dinner unter freiem Himmel um 19:30 Uhr<br>Dancing ab 22:00 Uhr</p></article>
+    <article class="card"><p class="small">Sunday</p><h3>Poolside Brunch</h3><p>Brunch um 11:00 Uhr<br>Abreise ab 14:00 Uhr</p></article>
+    <article class="image-panel"><img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=1400&q=80" alt="Cypress road Tuscany"/></article>
+  </div>
+</section>
+
+<section id="schedule" class="container schedule">
+  <h2>Detailed Schedule</h2>
+  <table>
+    <tr><th>Friday</th><td>15:00 Check-in</td><td>18:30 Aperitivo im Olivengarten</td><td>20:00 Welcome Dinner</td></tr>
+    <tr><th>Saturday</th><td>16:00 Ceremony</td><td>17:30 Cocktail Hour</td><td>19:30 Dinner · 22:00 Dancing</td></tr>
+    <tr><th>Sunday</th><td>11:00 Poolside Brunch</td><td>14:00 Abreise</td><td></td></tr>
+  </table>
+</section>
+
+<section id="venues" class="container">
+  <h2>Venues</h2>
+  <div class="grid-2">
+    <article class="card"><h3>Villa Sant’Elena</h3><p>Private Villa in Val d’Orcia mit Blick über Olivenhaine und Zypressen.</p></article>
+    <article class="image-panel"><img src="https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1400&q=80" alt="Italian countryside venue"/></article>
+    <article class="image-panel"><img src="https://images.unsplash.com/photo-1530018607912-eff2daa1bac4?auto=format&fit=crop&w=1400&q=80" alt="Olive grove wedding"/></article>
+    <article class="card"><h3>The Olive Courtyard</h3><p>Innenhof der Villa mit langen Tafeln, Kerzenlicht und italienischer Küche.</p></article>
+  </div>
+</section>
+
+<section id="travel" class="container">
+  <h2>Travel & Arrival</h2>
+  <p>Die nächstgelegenen Flughäfen sind Florenz (ca. 90 Minuten), Pisa (ca. 120 Minuten) und Rom (ca. 150 Minuten). Wir empfehlen einen Mietwagen, um die Region flexibel zu entdecken. Optionaler Shuttle ist auf Anfrage verfügbar.</p>
+</section>
+
+<section id="accommodation" class="container">
+  <h2>Accommodation</h2>
+  <div class="grid-2">
+    <article class="card"><h3>Borgo Lucente</h3><p>Boutique Hotel, 12 Minuten von der Villa entfernt.</p></article>
+    <article class="card"><h3>Casa Oliva</h3><p>Agriturismo, 8 Minuten von der Villa entfernt.</p></article>
+    <article class="card"><h3>Villa Guest Rooms</h3><p>Limitierte Zimmer direkt auf dem Anwesen für Familie und engste Freunde.</p></article>
+    <article class="image-panel"><img src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&w=1400&q=80" alt="Vineyard wedding"/></article>
+  </div>
+</section>
+
+<section id="dresscode" class="container">
+  <h2>Dresscode</h2>
+  <p>Friday: Tuscan Garden Elegant<br>Saturday: Black Tie Optional<br>Sunday: Relaxed Linen</p>
+</section>
+
+<section id="faq" class="container faq">
+  <h2>FAQ</h2>
+  <details><summary>Bis wann sollen Gäste antworten?</summary><p>Bitte gebt uns eure Rückmeldung bis spätestens 15. Juni 2026.</p></details>
+  <details><summary>Können Kinder mitkommen?</summary><p>Sehr gerne — bitte gebt die Anzahl im RSVP-Formular an.</p></details>
+  <details><summary>Gibt es einen Shuttle?</summary><p>Ja, ein Shuttle ist auf Anfrage verfügbar und kann im RSVP angegeben werden.</p></details>
+  <details><summary>Brauchen wir einen Mietwagen?</summary><p>Empfohlen, aber nicht zwingend. Für wichtige Wege können wir Transfers koordinieren.</p></details>
+  <details><summary>Was passiert bei schlechtem Wetter?</summary><p>Alle Programmpunkte haben elegante Indoor-Alternativen in der Villa.</p></details>
+  <details><summary>Gibt es vegetarische / vegane Optionen?</summary><p>Ja, selbstverständlich. Bitte gebt eure Wünsche und Allergien im RSVP an.</p></details>
+</section>
+
+<section id="concierge" class="container">
+  <h2>Concierge</h2>
+  <p>Sofia Ricci<br>Wedding Concierge<br><a href="mailto:sofia@example.com">sofia@example.com</a><br><a href="tel:+393330000000">+39 333 000 0000</a></p>
+</section>
+
+<section id="rsvp" class="container">
+  <h2>RSVP / Gästerückmeldung</h2>
+  <div class="rsvp-wrap">
+    <div class="steps"><span class="step active" data-step="1">Guest</span><span class="step" data-step="2">Attendance</span><span class="step" data-step="3">Details</span><span class="step" data-step="4">Finish</span></div>
+    <form id="rsvpForm">
+      <input class="visually-hidden" type="text" name="website" autocomplete="off" tabindex="-1">
+      <div class="form-step active" data-step="1">
+        <div class="row">
+          <div><label for="firstName">Vorname*</label><input id="firstName" required></div>
+          <div><label for="lastName">Nachname*</label><input id="lastName" required></div>
+        </div>
+        <div class="row">
+          <div><label for="email">E-Mail*</label><input id="email" type="email" required></div>
+          <div><label for="phone">Telefon</label><input id="phone"></div>
+        </div>
+      </div>
+      <div class="form-step" data-step="2">
+        <label for="attending">Teilnahme*</label>
+        <select id="attending" required><option>Ja</option><option>Nein</option></select>
+        <p class="muted">Bitte wählt eure Teilnahme, damit wir entsprechend planen können.</p>
+      </div>
+      <div class="form-step" data-step="3">
+        <label>Events</label>
+        <div class="row"><label><input type="checkbox" id="welcomeDinner"> Welcome Dinner</label><label><input type="checkbox" id="ceremony"> Ceremony & Dinner</label></div>
+        <label><input type="checkbox" id="brunch"> Poolside Brunch</label>
+        <div class="row">
+          <div><label for="plusOne">Begleitperson</label><select id="plusOne"><option>Nein</option><option>Ja</option></select></div>
+          <div><label for="plusOneName">Name Begleitperson</label><input id="plusOneName"></div>
+        </div>
+        <div class="row">
+          <div><label for="children">Kinder</label><select id="children"><option>Nein</option><option>Ja</option></select></div>
+          <div><label for="childrenCount">Anzahl Kinder</label><input id="childrenCount" type="number" min="0" value="0"></div>
+        </div>
+        <div class="row">
+          <div><label for="dietType">Ernährung</label><input id="dietType" placeholder="z. B. Vegetarisch"></div>
+          <div><label for="allergies">Allergien</label><input id="allergies"></div>
+        </div>
+        <div class="row">
+          <div><label for="hotelNeeded">Hotelbedarf</label><select id="hotelNeeded"><option>Nein</option><option>Ja</option></select></div>
+          <div><label for="preferredHotel">Bevorzugtes Hotel</label><input id="preferredHotel"></div>
+        </div>
+        <div class="row">
+          <div><label for="shuttleNeeded">Shuttlebedarf</label><select id="shuttleNeeded"><option>Nein</option><option>Ja</option></select></div>
+          <div><label for="shuttlePersons">Personen Shuttle</label><input id="shuttlePersons" type="number" min="0" value="0"></div>
+        </div>
+        <label for="message">Nachricht</label><textarea id="message" rows="4"></textarea>
+      </div>
+      <div class="form-step" data-step="4"><p>Bitte überprüft eure Angaben und sendet eure Rückmeldung.</p></div>
+
+      <div class="actions">
+        <button type="button" class="secondary" id="prevBtn">Zurück</button>
+        <button type="button" id="nextBtn">Weiter</button>
+        <button type="submit" id="submitBtn" style="display:none;">RSVP senden</button>
+      </div>
+      <p id="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <p>Mara & Julian · Val d’Orcia · 12–14 September 2026</p>
+</footer>
+
+<script>
+  const steps = [...document.querySelectorAll('.form-step')];
+  const labels = [...document.querySelectorAll('.step')];
+  const nextBtn = document.getElementById('nextBtn');
+  const prevBtn = document.getElementById('prevBtn');
+  const submitBtn = document.getElementById('submitBtn');
+  const form = document.getElementById('rsvpForm');
+  const statusEl = document.getElementById('status');
+  let current = 0;
+
+  function renderStep() {
+    steps.forEach((s,i)=>s.classList.toggle('active', i===current));
+    labels.forEach((l,i)=>l.classList.toggle('active', i===current));
+    prevBtn.style.visibility = current===0 ? 'hidden' : 'visible';
+    nextBtn.style.display = current===steps.length-1 ? 'none' : 'inline-block';
+    submitBtn.style.display = current===steps.length-1 ? 'inline-block' : 'none';
+  }
+  nextBtn.onclick = ()=>{ if (current < steps.length-1) { current++; renderStep(); } };
+  prevBtn.onclick = ()=>{ if (current > 0) { current--; renderStep(); } };
+  document.getElementById('burger').onclick = () => document.getElementById('menu').classList.toggle('open');
+
+  async function submitSignatureRsvp(payload) {
+    const res = await fetch('https://ivory-vine.de/api/custom-rsvp/mara-julian', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || !data.success) throw new Error(data.error || 'Rückmeldung konnte nicht gesendet werden.');
+    return data;
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    statusEl.textContent = '';
+    const firstName = document.getElementById('firstName').value.trim();
+    const lastName = document.getElementById('lastName').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const website = form.querySelector('input[name="website"]').value.trim();
+    if (!firstName || !lastName || !email) { statusEl.textContent = 'Bitte Vorname, Nachname und E-Mail ausfüllen.'; return; }
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (!emailOk) { statusEl.textContent = 'Bitte eine gültige E-Mail-Adresse angeben.'; return; }
+
+    const payload = {
+      guest: { firstName, lastName, email, phone: document.getElementById('phone').value.trim() || undefined },
+      attending: document.getElementById('attending').value,
+      events: {
+        welcomeDinner: document.getElementById('welcomeDinner').checked,
+        ceremony: document.getElementById('ceremony').checked,
+        brunch: document.getElementById('brunch').checked
+      },
+      party: {
+        plusOne: document.getElementById('plusOne').value,
+        plusOneName: document.getElementById('plusOneName').value.trim(),
+        children: document.getElementById('children').value,
+        childrenCount: Number(document.getElementById('childrenCount').value || 0)
+      },
+      dietary: {
+        type: document.getElementById('dietType').value.trim(),
+        allergies: document.getElementById('allergies').value.trim(),
+        notes: ''
+      },
+      hotel: {
+        needed: document.getElementById('hotelNeeded').value,
+        preferredHotel: document.getElementById('preferredHotel').value.trim(),
+        adults: document.getElementById('plusOne').value === 'Ja' ? 2 : 1,
+        children: Number(document.getElementById('childrenCount').value || 0),
+        notes: ''
+      },
+      shuttle: {
+        needed: document.getElementById('shuttleNeeded').value,
+        direction: 'Hin- und Rückfahrt',
+        persons: Number(document.getElementById('shuttlePersons').value || 0),
+        notes: ''
+      },
+      message: document.getElementById('message').value.trim(),
+      website
+    };
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Wird gesendet...';
+    try {
+      await submitSignatureRsvp(payload);
+      statusEl.textContent = 'Vielen Dank! Eure Rückmeldung wurde erfolgreich übermittelt.';
+      form.reset();
+      current = 0;
+      renderStep();
+    } catch (err) {
+      statusEl.textContent = err.message || 'Es gab ein Problem beim Senden. Bitte versucht es erneut.';
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'RSVP senden';
+    }
+  });
+
+  renderStep();
+</script>
+</body>
+</html>
